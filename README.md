@@ -17,9 +17,9 @@ One-click deploy – Docker Compose + Terraform spin up all cloud resources, all
 javascript
 
 
-┌──────────┐     Push Webhook       ┌──────────────┐
+┌──────────┐     Push Webhook      ┌──────────────┐
 │  GitHub  │ ───────────────────▶  │ FastAPI Edge │  ← OAuth / mTLS
-└──────────┘                       └──────┬───────┘
+└──────────┘                       └─────┬────────┘
                  fetch Δ SHAs            │
                                          ▼
                                ┌────────────────────┐
@@ -35,7 +35,7 @@ javascript
                              ▼                      │
                   ┌───────────────────────────┐     │
                   │ LangChain RetrievalQA     │     │ nightly hash
-                  └──────────┬───────────────┘     └─────► Immutable Log
+                  └──────────┬────────────────┘     └─────► Immutable Log
                              ▼
                      Hosted LLM (GPT-4o)
 
@@ -78,18 +78,9 @@ https://github.com/org/repo/blob/<sha>/<path>#L45-L67.
 7. Extensibility Hooks
 Graph mode: Import commit DAG into Neo4j; enable “why” answers via graph walks.
 Code-review bot: Run RetrievalQA on diff in a PR; comment if patterns appear insecure compared to historical fixes.
-Carbon-aware routing: Predict CO₂ per query; choose green region for LLM call.
 IDE plugins: VS Code, JetBrains, and Neovim extensions reuse the same API.
 8. Deliverables & Demo Assets
 GitHub repo – MIT-licensed code, Docker-Compose, Terraform.
 README white-paper – architecture diagram, threat model, benchmarking table (1 M vectors ≈ 220 ms p95).
 Loom video (≤ 3 min) – push a commit, ask a question, watch answer stream with diff viewer.
 Badges – “One-Click Deploy”, “Confidential-VM Ready”, “SOC-2 Controls Covered”.
-Optional blog post – “From Git History to Semantic Search: Building Git-RAG in 4 Weeks”.
-9. Estimated Timeline
-Week 1: Mirror clone, full history ingest, MVP CLI search
-Week 2: Webhook delta ingestion, ACL filters, audit log
-Week 3: Frontend + VS Code extension, streaming answers
-Week 4: IaC, security hardening, performance tuning, polish/demo
-10. Résumé Sound-bite
-“Designed and shipped a zero-trust, branch-aware Retrieval-Augmented Generation platform that semantically indexes 100% of a 2-million-commit GitHub org, delivers sub-300 ms encrypted answers with SHA-level citations, and anchors SOC-2 audit trails on-chain
