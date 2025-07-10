@@ -8,7 +8,7 @@ load_dotenv()
 
 repo_url = os.getenv('REPO_NAME')
 
-repo = Repo.clone_from(repo_url, os.getenv('LOCAL_CLONE_DIR'))
-tree = repo.head.commit.tree
-prev_commits = list(repo.iter_commits(all=True))
-tree = prev_commits[0].tree
+with open('shas,txt', 'r') as f:
+    shas = f.read().splitlines()
+# for sha in shas:
+    
