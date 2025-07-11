@@ -29,5 +29,17 @@ def get_language():
     else:
         print(f"Failed to fetch languages: {response.text}")
         return []
-    
+
+langs = get_language()
+for lang in langs:
+    target = f"vendor/tree-sitter-{lang}"
+    if not pathlib.Path(target).exists():
+        print("→ cloning", lang)
+        subprocess.check_call(["git","clone", "--depth","1", GIT_URL.format(lang), target])
+
+LANG_OBJS = {}
+for lang_name in langs:
+    LANG_OBJS[lang_name] = Language(BUNDLE, lang_name)
+
+
 get_language()
