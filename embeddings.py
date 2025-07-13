@@ -17,21 +17,17 @@ def generate_embeddings(chunks):
     return chunks
 
 def upsert_embeddings(index, embeddings_with_metadata):
-    """Batch upsert embeddings to Pinecone with metadata"""
-    batch_size = 100  # Pinecone recommends 100 vectors per batch
+    """Batch upsert embeddings to Pinecone with DAG metadata"""
+    batch_size = 100
     total_chunks = len(embeddings_with_metadata)
     successful_upserts = 0
     
     for i in range(0, total_chunks, batch_size):
         batch = embeddings_with_metadata[i:i+batch_size]
         
-        # Prepare vectors with unique IDs
         vectors = []
         for chunk in batch:
-            # Create unique ID - crucial for avoiding overwrites
             vector_id = f"{chunk['sha'][:8]}_{chunk['path']}_{chunk['line_start']}"
-            
-            # Ensure ID is valid (alphanumeric, hyphens, underscores only)
             vector_id = vector_id.replace('/', '_').replace('.', '_')
             
             vector_data = {
@@ -41,13 +37,19 @@ def upsert_embeddings(index, embeddings_with_metadata):
                     'sha': chunk['sha'],
                     'path': chunk['path'],
                     'language': chunk['language'],
-                    'content': chunk['content'][:1000],  # Truncate for metadata limit
+                    'content': chunk['content'][:1000],
                     'line_start': chunk['line_start'],
                     'line_end': chunk['line_end'],
-                    'type': chunk.get('type', 'code'),  # 'code' or 'diff'
-                    'branches': chunk.get('branches', []),  # Add branch info
+                    'type': chunk.get('type', 'code'),
+                    'branches': chunk.get('branches', []),
                     'timestamp': chunk.get('timestamp', ''),
-                    'commit_message': chunk.get('commit_message', '')[:500]
+                    'commit_message': chunk.get('commit_message', '')[:500],
+                    # DAG-specific metadata
+                    'parents': chunk.get('parents', []),
+                    'children': chunk.get('children', []),
+                    'depth': chunk.get('depth', 0),
+                    'is_merge': chunk.get('is_merge', False),
+                    'refs': chunk.get('refs', [])
                 }
             }
             vectors.append(vector_data)
