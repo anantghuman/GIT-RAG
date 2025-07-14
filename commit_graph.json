@@ -1,0 +1,748 @@
+{
+  "graph": {
+    "b7b54979cb499a7fa5ac47a975b306fdd0f247e2": {
+      "sha": "b7b54979cb499a7fa5ac47a975b306fdd0f247e2",
+      "parents": [
+        "03d38a5becc69bf351df63a3d24d46086584fcf8"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1743467792",
+      "message": "done with dms backend",
+      "refs": [
+        "HEAD -> main"
+      ],
+      "children": []
+    },
+    "03d38a5becc69bf351df63a3d24d46086584fcf8": {
+      "sha": "03d38a5becc69bf351df63a3d24d46086584fcf8",
+      "parents": [
+        "be995597eaeedc3e93c8452b13496742515f2438"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1743461162",
+      "message": "fixed req.user issues",
+      "refs": [],
+      "children": [
+        "b7b54979cb499a7fa5ac47a975b306fdd0f247e2"
+      ]
+    },
+    "be995597eaeedc3e93c8452b13496742515f2438": {
+      "sha": "be995597eaeedc3e93c8452b13496742515f2438",
+      "parents": [
+        "b54ea9c7132c1a43371c2937db741e6cff35997b"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1743460800",
+      "message": "fixed chatroom",
+      "refs": [],
+      "children": [
+        "03d38a5becc69bf351df63a3d24d46086584fcf8"
+      ]
+    },
+    "b54ea9c7132c1a43371c2937db741e6cff35997b": {
+      "sha": "b54ea9c7132c1a43371c2937db741e6cff35997b",
+      "parents": [
+        "14a9d20eb4147fcbc2ac8c2b1d5c7e05a127e6b9"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1743459485",
+      "message": "working dms",
+      "refs": [],
+      "children": [
+        "be995597eaeedc3e93c8452b13496742515f2438"
+      ]
+    },
+    "14a9d20eb4147fcbc2ac8c2b1d5c7e05a127e6b9": {
+      "sha": "14a9d20eb4147fcbc2ac8c2b1d5c7e05a127e6b9",
+      "parents": [
+        "d45e925165f86d4a301cfc9fc84b02f8806868f7"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741963959",
+      "message": "edit comments",
+      "refs": [],
+      "children": [
+        "b54ea9c7132c1a43371c2937db741e6cff35997b"
+      ]
+    },
+    "d45e925165f86d4a301cfc9fc84b02f8806868f7": {
+      "sha": "d45e925165f86d4a301cfc9fc84b02f8806868f7",
+      "parents": [
+        "923277ab77df1b6cbd43efb3dca21db9573c687d"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741562740",
+      "message": "added all chatroom routes",
+      "refs": [],
+      "children": [
+        "14a9d20eb4147fcbc2ac8c2b1d5c7e05a127e6b9"
+      ]
+    },
+    "923277ab77df1b6cbd43efb3dca21db9573c687d": {
+      "sha": "923277ab77df1b6cbd43efb3dca21db9573c687d",
+      "parents": [
+        "871d24f001114653b24eaa1476d9b2eab55105f4"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741562557",
+      "message": "added chatroom functionality",
+      "refs": [],
+      "children": [
+        "d45e925165f86d4a301cfc9fc84b02f8806868f7"
+      ]
+    },
+    "871d24f001114653b24eaa1476d9b2eab55105f4": {
+      "sha": "871d24f001114653b24eaa1476d9b2eab55105f4",
+      "parents": [
+        "26248e5632bbb5b5379a3efb8624768d956470fb"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741561279",
+      "message": "dm routes added to server",
+      "refs": [],
+      "children": [
+        "923277ab77df1b6cbd43efb3dca21db9573c687d"
+      ]
+    },
+    "26248e5632bbb5b5379a3efb8624768d956470fb": {
+      "sha": "26248e5632bbb5b5379a3efb8624768d956470fb",
+      "parents": [
+        "b4cb18ada1be6f284eb4a113bb1de53d8be3af5c"
+      ],
+      "author": "anantghuman",
+      "email": "105686382+anantghuman@users.noreply.github.com",
+      "timestamp": "1741560927",
+      "message": "Update README.md",
+      "refs": [],
+      "children": [
+        "871d24f001114653b24eaa1476d9b2eab55105f4"
+      ]
+    },
+    "b4cb18ada1be6f284eb4a113bb1de53d8be3af5c": {
+      "sha": "b4cb18ada1be6f284eb4a113bb1de53d8be3af5c",
+      "parents": [
+        "8ed588e56636003e7338caf6448ccb126f304491"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741495502",
+      "message": "get all unread messages",
+      "refs": [],
+      "children": [
+        "26248e5632bbb5b5379a3efb8624768d956470fb"
+      ]
+    },
+    "8ed588e56636003e7338caf6448ccb126f304491": {
+      "sha": "8ed588e56636003e7338caf6448ccb126f304491",
+      "parents": [
+        "840cb0e1c37f70dfd6848919d7f57196e6ff3e0f"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741495457",
+      "message": "get all messages",
+      "refs": [],
+      "children": [
+        "b4cb18ada1be6f284eb4a113bb1de53d8be3af5c"
+      ]
+    },
+    "840cb0e1c37f70dfd6848919d7f57196e6ff3e0f": {
+      "sha": "840cb0e1c37f70dfd6848919d7f57196e6ff3e0f",
+      "parents": [
+        "ac0b7637b63d3e4892e84089c4435d0fd8146230"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741392804",
+      "message": "scroll convo",
+      "refs": [],
+      "children": [
+        "8ed588e56636003e7338caf6448ccb126f304491"
+      ]
+    },
+    "ac0b7637b63d3e4892e84089c4435d0fd8146230": {
+      "sha": "ac0b7637b63d3e4892e84089c4435d0fd8146230",
+      "parents": [
+        "bad46b8f1e1070090d1a55e247641de5a6290d32"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741392487",
+      "message": "added dm routes",
+      "refs": [],
+      "children": [
+        "840cb0e1c37f70dfd6848919d7f57196e6ff3e0f"
+      ]
+    },
+    "bad46b8f1e1070090d1a55e247641de5a6290d32": {
+      "sha": "bad46b8f1e1070090d1a55e247641de5a6290d32",
+      "parents": [
+        "bd51a881d59898a9c077ad628cf3edb1d6f1a629"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741389890",
+      "message": "dmRoutes made and planned",
+      "refs": [],
+      "children": [
+        "ac0b7637b63d3e4892e84089c4435d0fd8146230"
+      ]
+    },
+    "bd51a881d59898a9c077ad628cf3edb1d6f1a629": {
+      "sha": "bd51a881d59898a9c077ad628cf3edb1d6f1a629",
+      "parents": [
+        "cf9478ed75ad202cd0f753f89bc050881e3f4b14"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741323982",
+      "message": "update profile",
+      "refs": [],
+      "children": [
+        "bad46b8f1e1070090d1a55e247641de5a6290d32"
+      ]
+    },
+    "cf9478ed75ad202cd0f753f89bc050881e3f4b14": {
+      "sha": "cf9478ed75ad202cd0f753f89bc050881e3f4b14",
+      "parents": [
+        "11d8f9787fdc7e8afc6f1bb298168a2707da22f8"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741323835",
+      "message": "reply comments",
+      "refs": [],
+      "children": [
+        "bd51a881d59898a9c077ad628cf3edb1d6f1a629"
+      ]
+    },
+    "11d8f9787fdc7e8afc6f1bb298168a2707da22f8": {
+      "sha": "11d8f9787fdc7e8afc6f1bb298168a2707da22f8",
+      "parents": [
+        "4efc55559804a3822154d5781878afbb293dedcc"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741240506",
+      "message": "delete comments",
+      "refs": [],
+      "children": [
+        "cf9478ed75ad202cd0f753f89bc050881e3f4b14"
+      ]
+    },
+    "4efc55559804a3822154d5781878afbb293dedcc": {
+      "sha": "4efc55559804a3822154d5781878afbb293dedcc",
+      "parents": [
+        "855acbf41fe8e5eef089d0b851302b5fddaef10c"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741240424",
+      "message": "comment reply",
+      "refs": [],
+      "children": [
+        "11d8f9787fdc7e8afc6f1bb298168a2707da22f8"
+      ]
+    },
+    "855acbf41fe8e5eef089d0b851302b5fddaef10c": {
+      "sha": "855acbf41fe8e5eef089d0b851302b5fddaef10c",
+      "parents": [
+        "94bc4afbe178e20f253cbe9bfa3ccba467cc8e96"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741240386",
+      "message": "comment to post",
+      "refs": [],
+      "children": [
+        "4efc55559804a3822154d5781878afbb293dedcc"
+      ]
+    },
+    "94bc4afbe178e20f253cbe9bfa3ccba467cc8e96": {
+      "sha": "94bc4afbe178e20f253cbe9bfa3ccba467cc8e96",
+      "parents": [
+        "ef3b8a7318e96a3dd495cc53cabda5ab69808a1f"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741139090",
+      "message": "holy shit im the goat",
+      "refs": [],
+      "children": [
+        "855acbf41fe8e5eef089d0b851302b5fddaef10c"
+      ]
+    },
+    "ef3b8a7318e96a3dd495cc53cabda5ab69808a1f": {
+      "sha": "ef3b8a7318e96a3dd495cc53cabda5ab69808a1f",
+      "parents": [
+        "3f85998b73c416d45f3fe5e0f30fc7ea59a5d029"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741138317",
+      "message": "fix",
+      "refs": [],
+      "children": [
+        "94bc4afbe178e20f253cbe9bfa3ccba467cc8e96"
+      ]
+    },
+    "3f85998b73c416d45f3fe5e0f30fc7ea59a5d029": {
+      "sha": "3f85998b73c416d45f3fe5e0f30fc7ea59a5d029",
+      "parents": [
+        "b294e16957f1385d4ceda1a0e647e59bd758afe0"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741137721",
+      "message": "syntax error",
+      "refs": [],
+      "children": [
+        "ef3b8a7318e96a3dd495cc53cabda5ab69808a1f"
+      ]
+    },
+    "b294e16957f1385d4ceda1a0e647e59bd758afe0": {
+      "sha": "b294e16957f1385d4ceda1a0e647e59bd758afe0",
+      "parents": [
+        "ee3e5b0c4522f3c8d6fd89babe6638d5fc4d4835"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741137467",
+      "message": "fixed",
+      "refs": [],
+      "children": [
+        "3f85998b73c416d45f3fe5e0f30fc7ea59a5d029"
+      ]
+    },
+    "ee3e5b0c4522f3c8d6fd89babe6638d5fc4d4835": {
+      "sha": "ee3e5b0c4522f3c8d6fd89babe6638d5fc4d4835",
+      "parents": [
+        "5d347fae2108f4326f3d1e49f48cd1c45b472c0d"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741137345",
+      "message": "fixed like and changed pg db to match",
+      "refs": [],
+      "children": [
+        "b294e16957f1385d4ceda1a0e647e59bd758afe0"
+      ]
+    },
+    "5d347fae2108f4326f3d1e49f48cd1c45b472c0d": {
+      "sha": "5d347fae2108f4326f3d1e49f48cd1c45b472c0d",
+      "parents": [
+        "68d997641c3b57b615b0411f2cb4ef94ed6a2699"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741132217",
+      "message": "added authentication routes",
+      "refs": [],
+      "children": [
+        "ee3e5b0c4522f3c8d6fd89babe6638d5fc4d4835"
+      ]
+    },
+    "68d997641c3b57b615b0411f2cb4ef94ed6a2699": {
+      "sha": "68d997641c3b57b615b0411f2cb4ef94ed6a2699",
+      "parents": [
+        "a6929e1cc817b99309b79fb2de441df96ecd554b"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741040476",
+      "message": "delete account functionality",
+      "refs": [],
+      "children": [
+        "5d347fae2108f4326f3d1e49f48cd1c45b472c0d"
+      ]
+    },
+    "a6929e1cc817b99309b79fb2de441df96ecd554b": {
+      "sha": "a6929e1cc817b99309b79fb2de441df96ecd554b",
+      "parents": [
+        "6f5e98ba6811cab16341f3b7ede4c2b23648e739"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1741039854",
+      "message": "fixed ordering of thought routes",
+      "refs": [],
+      "children": [
+        "68d997641c3b57b615b0411f2cb4ef94ed6a2699"
+      ]
+    },
+    "6f5e98ba6811cab16341f3b7ede4c2b23648e739": {
+      "sha": "6f5e98ba6811cab16341f3b7ede4c2b23648e739",
+      "parents": [
+        "a3a9f915a89f8f5664b60dab54525800ad2d4244"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740962420",
+      "message": "added comments",
+      "refs": [],
+      "children": [
+        "a6929e1cc817b99309b79fb2de441df96ecd554b"
+      ]
+    },
+    "a3a9f915a89f8f5664b60dab54525800ad2d4244": {
+      "sha": "a3a9f915a89f8f5664b60dab54525800ad2d4244",
+      "parents": [
+        "f2314f3f3e40e4f1b9188b4b9494ecb05fc4276e"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740962268",
+      "message": "fixed",
+      "refs": [],
+      "children": [
+        "6f5e98ba6811cab16341f3b7ede4c2b23648e739"
+      ]
+    },
+    "f2314f3f3e40e4f1b9188b4b9494ecb05fc4276e": {
+      "sha": "f2314f3f3e40e4f1b9188b4b9494ecb05fc4276e",
+      "parents": [
+        "3f5903ef6a6fa491c953dca1a0b36e8cfe7756ca"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740961773",
+      "message": "added checks to determine if post is already favorited before favoriting",
+      "refs": [],
+      "children": [
+        "a3a9f915a89f8f5664b60dab54525800ad2d4244"
+      ]
+    },
+    "3f5903ef6a6fa491c953dca1a0b36e8cfe7756ca": {
+      "sha": "3f5903ef6a6fa491c953dca1a0b36e8cfe7756ca",
+      "parents": [
+        "572ba6875f349373fd7a96b292731789ef0fb1e2"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740961404",
+      "message": "added unfavorite",
+      "refs": [],
+      "children": [
+        "f2314f3f3e40e4f1b9188b4b9494ecb05fc4276e"
+      ]
+    },
+    "572ba6875f349373fd7a96b292731789ef0fb1e2": {
+      "sha": "572ba6875f349373fd7a96b292731789ef0fb1e2",
+      "parents": [
+        "cfdb7d4652a8d80a8094031884bfbf2d70426490"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740960892",
+      "message": "fixed error",
+      "refs": [],
+      "children": [
+        "3f5903ef6a6fa491c953dca1a0b36e8cfe7756ca"
+      ]
+    },
+    "cfdb7d4652a8d80a8094031884bfbf2d70426490": {
+      "sha": "cfdb7d4652a8d80a8094031884bfbf2d70426490",
+      "parents": [
+        "a9dd12d9d76483667de1712d850beb64a384269e"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740960869",
+      "message": "get all thoughts from a user",
+      "refs": [],
+      "children": [
+        "572ba6875f349373fd7a96b292731789ef0fb1e2"
+      ]
+    },
+    "a9dd12d9d76483667de1712d850beb64a384269e": {
+      "sha": "a9dd12d9d76483667de1712d850beb64a384269e",
+      "parents": [
+        "469a57eeb72415f564b72121bf7a447d2ff1ea6c"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740960500",
+      "message": "get all public thoughts functionality added",
+      "refs": [],
+      "children": [
+        "cfdb7d4652a8d80a8094031884bfbf2d70426490"
+      ]
+    },
+    "469a57eeb72415f564b72121bf7a447d2ff1ea6c": {
+      "sha": "469a57eeb72415f564b72121bf7a447d2ff1ea6c",
+      "parents": [
+        "bc39749ab004b1aee34c0cd9bd500298a11a561b"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740960429",
+      "message": "added get request for private thoughts from a user",
+      "refs": [],
+      "children": [
+        "a9dd12d9d76483667de1712d850beb64a384269e"
+      ]
+    },
+    "bc39749ab004b1aee34c0cd9bd500298a11a561b": {
+      "sha": "bc39749ab004b1aee34c0cd9bd500298a11a561b",
+      "parents": [
+        "cb9d4b01e882293a9414d9dc7134009289108095"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740960089",
+      "message": "added working posts allowing text to be posted",
+      "refs": [],
+      "children": [
+        "469a57eeb72415f564b72121bf7a447d2ff1ea6c"
+      ]
+    },
+    "cb9d4b01e882293a9414d9dc7134009289108095": {
+      "sha": "cb9d4b01e882293a9414d9dc7134009289108095",
+      "parents": [
+        "67e5cc254773d939801bd7ef66b3b2b7d98ef7fa"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740958953",
+      "message": "added routes for thoughts",
+      "refs": [],
+      "children": [
+        "bc39749ab004b1aee34c0cd9bd500298a11a561b"
+      ]
+    },
+    "67e5cc254773d939801bd7ef66b3b2b7d98ef7fa": {
+      "sha": "67e5cc254773d939801bd7ef66b3b2b7d98ef7fa",
+      "parents": [
+        "3a2903d105d8d2f808ad04686f76a5f183810ea6"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740957580",
+      "message": "added friend and block routes still need testing",
+      "refs": [],
+      "children": [
+        "cb9d4b01e882293a9414d9dc7134009289108095"
+      ]
+    },
+    "3a2903d105d8d2f808ad04686f76a5f183810ea6": {
+      "sha": "3a2903d105d8d2f808ad04686f76a5f183810ea6",
+      "parents": [
+        "816b8a692ea53b2566c962775c326b1a4b91fac7"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740955369",
+      "message": "fixed block, unblock, and get all blocked",
+      "refs": [],
+      "children": [
+        "67e5cc254773d939801bd7ef66b3b2b7d98ef7fa"
+      ]
+    },
+    "816b8a692ea53b2566c962775c326b1a4b91fac7": {
+      "sha": "816b8a692ea53b2566c962775c326b1a4b91fac7",
+      "parents": [
+        "332c3564cc2beaf7b7ca38cdb070e7dbe11e7c86"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740954996",
+      "message": "added get all blocked users",
+      "refs": [],
+      "children": [
+        "3a2903d105d8d2f808ad04686f76a5f183810ea6"
+      ]
+    },
+    "332c3564cc2beaf7b7ca38cdb070e7dbe11e7c86": {
+      "sha": "332c3564cc2beaf7b7ca38cdb070e7dbe11e7c86",
+      "parents": [
+        "71df5054bc0973c188774b36909e9133b0d7689c"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740954941",
+      "message": "added blocking yet to test",
+      "refs": [],
+      "children": [
+        "816b8a692ea53b2566c962775c326b1a4b91fac7"
+      ]
+    },
+    "71df5054bc0973c188774b36909e9133b0d7689c": {
+      "sha": "71df5054bc0973c188774b36909e9133b0d7689c",
+      "parents": [
+        "954e77e7008744924e80dd834db8af8a118fab23"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740954656",
+      "message": "added some friend routes and user registration and login",
+      "refs": [],
+      "children": [
+        "332c3564cc2beaf7b7ca38cdb070e7dbe11e7c86"
+      ]
+    },
+    "954e77e7008744924e80dd834db8af8a118fab23": {
+      "sha": "954e77e7008744924e80dd834db8af8a118fab23",
+      "parents": [
+        "895635f83de99db4e3ff35dbb426849cd73a334c"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1740946325",
+      "message": "push",
+      "refs": [],
+      "children": [
+        "71df5054bc0973c188774b36909e9133b0d7689c"
+      ]
+    },
+    "895635f83de99db4e3ff35dbb426849cd73a334c": {
+      "sha": "895635f83de99db4e3ff35dbb426849cd73a334c",
+      "parents": [
+        "c6e8f88d4b46811b4ab26b8ef86a55effbbcbbd0"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1738641138",
+      "message": "fixed readme hopefully",
+      "refs": [],
+      "children": [
+        "954e77e7008744924e80dd834db8af8a118fab23"
+      ]
+    },
+    "c6e8f88d4b46811b4ab26b8ef86a55effbbcbbd0": {
+      "sha": "c6e8f88d4b46811b4ab26b8ef86a55effbbcbbd0",
+      "parents": [
+        "1abe27030103a888a84837e17ce2a506ec693e0e"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1738623721",
+      "message": "added readme for backend",
+      "refs": [],
+      "children": [
+        "895635f83de99db4e3ff35dbb426849cd73a334c"
+      ]
+    },
+    "1abe27030103a888a84837e17ce2a506ec693e0e": {
+      "sha": "1abe27030103a888a84837e17ce2a506ec693e0e",
+      "parents": [
+        "74653a001275595569dc71099a1c4e513d1257a2"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1738622867",
+      "message": "fixed",
+      "refs": [],
+      "children": [
+        "c6e8f88d4b46811b4ab26b8ef86a55effbbcbbd0"
+      ]
+    },
+    "74653a001275595569dc71099a1c4e513d1257a2": {
+      "sha": "74653a001275595569dc71099a1c4e513d1257a2",
+      "parents": [
+        "270173d2c3e00c353b2b3e2d43a63208d78149da"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1738622827",
+      "message": " set up server",
+      "refs": [],
+      "children": [
+        "1abe27030103a888a84837e17ce2a506ec693e0e"
+      ]
+    },
+    "270173d2c3e00c353b2b3e2d43a63208d78149da": {
+      "sha": "270173d2c3e00c353b2b3e2d43a63208d78149da",
+      "parents": [
+        "23e3782549094eea0863281f9fed6d1d5b085cb4"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1738622218",
+      "message": "removed env",
+      "refs": [],
+      "children": [
+        "74653a001275595569dc71099a1c4e513d1257a2"
+      ]
+    },
+    "23e3782549094eea0863281f9fed6d1d5b085cb4": {
+      "sha": "23e3782549094eea0863281f9fed6d1d5b085cb4",
+      "parents": [
+        "5b205a4a20fe5f028d886c8dbf54d23556a36b97"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1738622134",
+      "message": "Removed.env",
+      "refs": [],
+      "children": [
+        "270173d2c3e00c353b2b3e2d43a63208d78149da"
+      ]
+    },
+    "5b205a4a20fe5f028d886c8dbf54d23556a36b97": {
+      "sha": "5b205a4a20fe5f028d886c8dbf54d23556a36b97",
+      "parents": [
+        "57001ed40f6959573972439ac337849aa383b1dd"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1738621419",
+      "message": "made the backend/frontend file structure separate",
+      "refs": [],
+      "children": [
+        "23e3782549094eea0863281f9fed6d1d5b085cb4"
+      ]
+    },
+    "57001ed40f6959573972439ac337849aa383b1dd": {
+      "sha": "57001ed40f6959573972439ac337849aa383b1dd",
+      "parents": [
+        "5e4bd821d989e62801bdb764b972d2cfb635faa0"
+      ],
+      "author": "anantghuman",
+      "email": "anant.ghuman@gmail.com",
+      "timestamp": "1738620764",
+      "message": "Made general backend file structure and initial server.",
+      "refs": [],
+      "children": [
+        "5b205a4a20fe5f028d886c8dbf54d23556a36b97"
+      ]
+    },
+    "5e4bd821d989e62801bdb764b972d2cfb635faa0": {
+      "sha": "5e4bd821d989e62801bdb764b972d2cfb635faa0",
+      "parents": [
+        "d95213d4e42da35c88897f456442e6ca92c65bbd"
+      ],
+      "author": "anantghuman",
+      "email": "105686382+anantghuman@users.noreply.github.com",
+      "timestamp": "1738542015",
+      "message": "Update README.md",
+      "refs": [],
+      "children": [
+        "57001ed40f6959573972439ac337849aa383b1dd"
+      ]
+    },
+    "d95213d4e42da35c88897f456442e6ca92c65bbd": {
+      "sha": "d95213d4e42da35c88897f456442e6ca92c65bbd",
+      "parents": [],
+      "author": "anantghuman",
+      "email": "105686382+anantghuman@users.noreply.github.com",
+      "timestamp": "1738540729",
+      "message": "Initial commit",
+      "refs": [],
+      "children": [
+        "5e4bd821d989e62801bdb764b972d2cfb635faa0"
+      ]
+    }
+  },
+  "branch_tips": {
+    "main": "b7b54979cb499a7fa5ac47a975b306fdd0f247e2"
+  },
+  "repo_path": "/Users/anantghuman/Coding/GIT-RAG/Repos/Hush.git"
+}
