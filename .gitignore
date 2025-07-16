@@ -3,4 +3,5 @@ commands.txt
 shas.txt
 gitrag.venv/
 additional_info/shas.txt
-additional_info/commands.txt``
+additional_info/commands.txt
+commit_graph.json

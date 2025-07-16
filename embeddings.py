@@ -1,18 +1,18 @@
-import openai
+from openai import OpenAI
+import os
 
 def generate_embeddings(chunks):
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     
     for chunk in chunks:
-        # Use different models based on content type
         model = "text-embedding-3-large" if chunk.get('type') == 'code' else "text-embedding-3-small"
         
-        response = openai.Embedding.create(
+        response = client.embeddings.create(
             model=model,
             input=chunk['content']
         )
         
-        chunk['embedding'] = response['data'][0]['embedding']
+        chunk['embedding'] = response.data[0].embedding
     
     return chunks
 

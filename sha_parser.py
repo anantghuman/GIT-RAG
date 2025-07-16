@@ -1,11 +1,19 @@
 import subprocess, os
 from dotenv import load_dotenv
+from ingest_cli import get_language
 
 load_dotenv()
 
+import json
+
+def get_repo_path():
+    with open("commit_graph.json", "r") as f:
+        data = json.load(f)
+        return data['repo_path']
+
 def get_branches_for_sha(sha):
     """Get all branches that contain this SHA"""
-    cmd = ["git", "--git-dir", os.getenv("REPO"), "branch", "--contains", sha, "-r"]
+    cmd = ["git", "--git-dir", get_repo_path(), "branch", "--contains", sha, "-r"]
     result = subprocess.run(cmd, capture_output=True, text=True)
     branches = [b.strip() for b in result.stdout.split('\n') if b.strip()]
     return branches
@@ -45,3 +53,30 @@ def get_commit_info(sha, repo_path):
         'timestamp': parts[2],
         'message': parts[3]
     }
+
+def setup_tree_sitter_languages():
+    """Clone tree-sitter language repos"""
+    os.makedirs("vendor", exist_ok=True)
+    
+    lang_repos = {
+        'python': 'https://github.com/tree-sitter/tree-sitter-python',
+        'javascript': 'https://github.com/tree-sitter/tree-sitter-javascript',
+        'typescript': 'https://github.com/tree-sitter/tree-sitter-typescript',
+        'java': 'https://github.com/tree-sitter/tree-sitter-java',
+        'go': 'https://github.com/tree-sitter/tree-sitter-go',
+        'rust': 'https://github.com/tree-sitter/tree-sitter-rust',
+    }
+    
+    for lang in get_language():
+        if lang not in lang_repos:
+            print(f"Unsupported language: {lang}")
+            continue
+        vendor_path = f"vendor/tree-sitter-{lang}"
+        if not os.path.exists(vendor_path):
+            print(f"Cloning {lang} parser...")
+            subprocess.run(["git", "clone", lang_repos[lang], vendor_path], check=True)
+        else:
+            print(f"{lang} parser already exists")
+
+if __name__ == "__main__":
+    setup_tree_sitter_languages()

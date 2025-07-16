@@ -1,21 +1,24 @@
-import pinecone
 import os
+from pinecone import Pinecone, ServerlessSpec
 
 def setup_vector_db():
-    pinecone.init(
-        api_key=os.getenv("PINECONE_API_KEY"),
-        environment=os.getenv("PINECONE_ENV")
-    )
+    pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
     
-    # Create index if doesn't exist
-    if "git-rag" not in pinecone.list_indexes():
-        pinecone.create_index(
-            "git-rag",
-            dimension=1536,  # OpenAI embedding dimension
-            metric="cosine"
+    index_name = "git-rag"
+    existing_indexes = [index.name for index in pc.list_indexes()]
+    
+    if index_name not in existing_indexes:
+        pc.create_index(
+            name=index_name,
+            dimension=1536,
+            metric="cosine",
+            spec=ServerlessSpec(
+                cloud='aws',
+                region='us-east-1'
+            )
         )
     
-    return pinecone.Index("git-rag")
+    return pc.Index(index_name)
 
 def upsert_embeddings(index, embeddings_with_metadata):
     # Batch upsert as specified (100 at a time)

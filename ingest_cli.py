@@ -2,6 +2,7 @@ from pathlib import Path
 import subprocess, os, requests
 from tree_sitter import Language, Parser
 from dotenv import load_dotenv
+from sha_parser import get_repo_path
 
 load_dotenv()
 
@@ -10,7 +11,7 @@ BUNDLE = "build/my_langs.so"
 
 def get_language():
     user = os.getenv("USER")
-    repo = os.getenv("REPO")
+    repo = get_repo_path()
     if not user or not repo:
         print("USER or REPO environment variable is not set.")
         return []
