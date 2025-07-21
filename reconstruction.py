@@ -1,5 +1,10 @@
 from typing import Optional, Dict, List
 from smart_chunker import SmartChunker
+import patch_ng
+import subprocess
+import tempfile
+import os
+
 
 class FileReconstructor:
     def __init__(self, vector_db_index, commit_graph: Dict, repo_path: str):
@@ -149,18 +154,30 @@ class FileReconstructor:
             return None
     
     def apply_diff(self, content: str, diff: str) -> str:
-        """Apply a unified diff to content"""
-        import patch_ng
+        """Apply a unified diff to content using patch-ng"""
+        # Create a temporary file with the original content
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.tmp') as f:
+            f.write(content)
+            temp_file = f.name
+
+        try:
+            # Create a patch object
+            pset = patch_ng.fromstring(diff.encode())
         
-        # For simple implementation, we'll use patch_ng library
-        # In production, you might want a more robust solution
-        pset = patch_ng.fromstring(diff.encode())
+            # Apply the patch
+            success = pset.apply(root=os.path.dirname(temp_file))
         
-        # Apply patch to content
-        # This is simplified - real implementation would be more complex
-        lines = content.split('\n')
-        for hunk in pset.items[0].hunks:
-            # Apply hunk changes
-            pass
-        
-        return '\n'.join(lines)
+            if success:
+                # Read the patched content
+                with open(temp_file, 'r') as f:
+                    patched_content = f.read()
+                return patched_content
+            else:
+                print("Failed to apply patch")
+                return content
+            
+        finally:
+            # Clean up
+            if os.path.exists(temp_file):
+                os.unlink(temp_file)
+
