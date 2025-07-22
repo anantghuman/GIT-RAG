@@ -252,12 +252,12 @@ def process_commit(sha, commit_data, branches, depth, parsers, languages, stats)
 
 if __name__ == "__main__":
     # Check for required environment variables
-    # required_vars = ['OPENAI_API_KEY', 'PINECONE_API_KEY']
-    # missing = [var for var in required_vars if not os.getenv(var)]
-    
-    # if missing:
-    #     print(f"❌ Missing required environment variables: {missing}")
-    #     print("Please set them in your .env file")
+    required_vars = [os.getenv('OPENAI_API_KEY'), os.getenv('PINECONE_API_KEY')]
+    missing = [var for var in required_vars if not var]
+
+    if missing:
+        print(f"❌ Missing required environment variables: {missing}")
+        print("Please set them in your .env file")
     #     sys.exit(1)
     
     # Check if commit graph exists
