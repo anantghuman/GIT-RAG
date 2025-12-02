@@ -15,7 +15,7 @@ load_dotenv()
 
 def ingest_repository():
     """Ingest entire repository into Pinecone"""
-    print("🚀 Starting Git-RAG Repository Ingestion\n")
+    print("Starting Git-RAG Repository Ingestion\n")
     
     # Load commit graph
     with open("commit_graph.json", "r") as f:
@@ -24,39 +24,39 @@ def ingest_repository():
         branch_tips = data['branch_tips']
         repo_path = data['repo_path']
     
-    print(f"📁 Repository: {repo_path}")
-    print(f"📊 Total commits: {len(commit_graph)}")
-    print(f"🌳 Branches: {list(branch_tips.keys())}\n")
+    print(f"Repository: {repo_path}")
+    print(f"Total commits: {len(commit_graph)}")
+    print(f"Branches: {list(branch_tips.keys())}\n")
     
     # Get languages
     try:
         languages = get_language()
-        print(f"🔤 Languages detected: {list(languages.keys()) if isinstance(languages, dict) else languages}")
+        print(f"Languages detected: {list(languages.keys()) if isinstance(languages, dict) else languages}")
     except Exception as e:
-        print(f"⚠️  Could not fetch languages from GitHub API: {e}")
+        print(f"Could not fetch languages from GitHub API: {e}")
         languages = ['Python', 'JavaScript', 'TypeScript', 'Java', 'Go']
-        print(f"🔤 Using fallback languages: {languages}")
+        print(f"Using fallback languages: {languages}")
     
     # Build parsers
-    print("\n🔧 Building language parsers...")
+    print("\nBuilding language parsers...")
     parsers = build_parsers(languages if isinstance(languages, list) else list(languages.keys()))
     if not parsers:
-        print("❌ Failed to build any parsers. Exiting.")
+        print("Failed to build any parsers. Exiting.")
         return
     
     # Set up Pinecone
-    print("\n🔗 Setting up Pinecone...")
+    print("\nSetting up Pinecone...")
     try:
         index = setup_vector_db()
-        print("✅ Pinecone index ready")
+        print("Pinecone index ready")
     except Exception as e:
-        print(f"❌ Failed to setup Pinecone: {e}")
+        print(f"Failed to setup Pinecone: {e}")
         print("Make sure PINECONE_API_KEY is set in .env")
         return
     
     # Process commits in topological order
     sorted_commits = topological_sort(commit_graph)
-    print(f"\n📈 Processing {len(sorted_commits)} commits...")
+    print(f"\nProcessing {len(sorted_commits)} commits...")
     
     # Track statistics
     stats = {
@@ -96,34 +96,34 @@ def ingest_repository():
                 # Progress update
                 if stats['processed_commits'] % 10 == 0:
                     progress = (stats['processed_commits'] / stats['total_commits']) * 100
-                    print(f"\n📊 Progress: {progress:.1f}% ({stats['processed_commits']}/{stats['total_commits']})")
+                    print(f"\nProgress: {progress:.1f}% ({stats['processed_commits']}/{stats['total_commits']})")
                     print(f"   Chunks extracted: {stats['total_chunks']}")
                     print(f"   Files processed: {stats['total_files']}")
                 
             except Exception as e:
-                print(f"\n❌ Error processing commit {sha[:8]}: {e}")
+                print(f"\nError processing commit {sha[:8]}: {e}")
                 stats['errors'] += 1
                 continue
         
         # Generate embeddings and upload batch
         # if batch_chunks:
         #     try:
-        #         print(f"\n🤖 Generating embeddings for {len(batch_chunks)} chunks...")
+        #         print(f"\nGenerating embeddings for {len(batch_chunks)} chunks...")
         #         embedded_chunks = generate_embeddings(batch_chunks)
                 
-        #         print(f"📤 Uploading to Pinecone...")
+        #         print(f"Uploading to Pinecone...")
         #         upsert_embeddings(index, embedded_chunks)
                 
         #     except Exception as e:
-        #         print(f"❌ Error uploading batch: {e}")
+        #         print(f"Error uploading batch: {e}")
         #         stats['errors'] += 1
     
     # Final statistics
     elapsed = datetime.now() - stats['start_time']
     print("\n" + "="*60)
-    print("✅ INGESTION COMPLETE!")
+    print("INGESTION COMPLETE!")
     print("="*60)
-    print(f"📊 Final Statistics:")
+    print(f"Final Statistics:")
     print(f"   Total commits processed: {stats['processed_commits']}")
     print(f"   Total chunks created: {stats['total_chunks']}")
     print(f"   Total files processed: {stats['total_files']}")
@@ -208,7 +208,7 @@ def process_commit(sha, commit_data, branches, depth, parsers, languages, stats)
                     pass  # Skip if diff fails
                     
         except Exception as e:
-            print(f"   ⚠️  Error processing {file_path}: {e}")
+            print(f"Error processing {file_path}: {e}")
             continue
     
     stats['total_chunks'] += len(chunks)
@@ -216,11 +216,11 @@ def process_commit(sha, commit_data, branches, depth, parsers, languages, stats)
 
 # def verify_ingestion(index):
 #     """Verify the ingestion worked by running sample queries"""
-#     print("\n🔍 Verifying ingestion...")
+#     print("\nVerifying ingestion...")
     
 #     # Get index stats
 #     stats = index.describe_index_stats()
-#     print(f"✅ Total vectors in index: {stats['total_vector_count']}")
+#     print(f"Total vectors in index: {stats['total_vector_count']}")
     
 #     # Try a sample query
 #     try:
@@ -238,7 +238,7 @@ def process_commit(sha, commit_data, branches, depth, parsers, languages, stats)
 #             include_metadata=True
 #         )
         
-#         print(f"\n🔍 Sample query: '{test_query}'")
+#         print(f"\nSample query: '{test_query}'")
 #         print(f"Found {len(results.matches)} matches:")
         
 #         for i, match in enumerate(results.matches):
@@ -248,7 +248,7 @@ def process_commit(sha, commit_data, branches, depth, parsers, languages, stats)
 #             print(f"   Content preview: {match.metadata['content'][:100]}...")
             
 #     except Exception as e:
-#         print(f"⚠️  Could not run verification query: {e}")
+#         print(f"Could not run verification query: {e}")
 
 if __name__ == "__main__":
     # Check for required environment variables
@@ -256,13 +256,13 @@ if __name__ == "__main__":
     missing = [var for var in required_vars if not var]
 
     if missing:
-        print(f"❌ Missing required environment variables: {missing}")
+        print(f"Missing required environment variables: {missing}")
         print("Please set them in your .env file")
     #     sys.exit(1)
     
     # Check if commit graph exists
     if not os.path.exists("commit_graph.json"):
-        print("❌ commit_graph.json not found. Run script.py first!")
+        print("commit_graph.json not found. Run script.py first!")
         sys.exit(1)
     
     # Run ingestion
@@ -273,4 +273,4 @@ if __name__ == "__main__":
         index = setup_vector_db()
         #verify_ingestion(index)
     except Exception as e:
-        print(f"⚠️  Could not verify ingestion: {e}")
+        print(f"Could not verify ingestion: {e}")
