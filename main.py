@@ -1,169 +1,78 @@
-import subprocess, os, json, sys
-from collections import deque
+"""Single entry point that orchestrates clone -> ingest -> query."""
+import argparse
+import os
+import sys
 
-from ingest_cli import build_parsers, get_language, get_file_language
-from sha_parser import get_changed_files, get_commit_info, get_branches_for_sha, get_file_at_sha, get_diff_for_file
-from embeddings import generate_embeddings, upsert_embeddings
-from pinecone_setup import setup_vector_db
-from dag_utils import topological_sort, get_commit_depth, get_branches_containing_commit
-from smart_chunker import SmartChunker
 from dotenv import load_dotenv
 
 load_dotenv()
 
-def ingest_repository_with_smart_chunking():
-    """Ingest repository using smart chunking and deduplication"""
-    
-    # Load the commit graph
-    with open("commit_graph.json", "r") as f:
-        data = json.load(f)
-        commit_graph = data['graph']
-        branch_tips = data['branch_tips']
-        repo_path = data['repo_path']
-    
-    # Get languages and build parsers
-    languages = get_language()
-    parsers = build_parsers(languages)
-    
-    # Set up vector DB
-    index = setup_vector_db()
-    
-    # Initialize smart chunker
-    chunker = SmartChunker(repo_path)
-    
-    # Process commits in topological order
-    sorted_commits = topological_sort(commit_graph)
-    
-    print(f"Processing {len(sorted_commits)} commits with smart chunking...")
-    
-    processed = set()
-    commit_count = 0
-    total_chunks = 0
-    deduplicated_chunks = 0
-    
-    for i, sha in enumerate(sorted_commits):
-        if sha in processed:
-            continue
-        
-        commit_count += 1
-        print(f"Processing commit {i+1}/{len(sorted_commits)}: {sha[:8]}")
-        
-        # Get enhanced commit context
-        commit_data = commit_graph[sha]
-        branches = get_branches_containing_commit(sha, commit_graph, branch_tips)
-        depth = get_commit_depth(sha, commit_graph)
-        
-        # Process changed files with smart chunking
-        chunks = process_commit_smart(
-            sha, commit_data, branches, depth, parsers, languages, 
-            commit_graph, chunker, commit_count
-        )
-        
-        # Count deduplication
-        for chunk in chunks:
-            if chunk.get('storage_type') == 'deduplicated':
-                deduplicated_chunks += 1
-        
-        total_chunks += len(chunks)
-        
-        # Generate embeddings and store
-        if chunks:
-            # Only generate embeddings for chunks with content
-            chunks_with_content = [c for c in chunks if c.get('type') != 'reference']
-            if chunks_with_content:
-                embedded_chunks = generate_embeddings(chunks_with_content)
-                upsert_embeddings(index, embedded_chunks)
-        
-        processed.add(sha)
-        
-        # Print stats every 100 commits
-        if commit_count % 100 == 0:
-            print(f"Stats: {total_chunks} total chunks, {deduplicated_chunks} deduplicated")
-            savings = (deduplicated_chunks / max(total_chunks, 1)) * 100
-            print(f"Space savings: {savings:.1f}%")
-    
-    print(f"\nFinal stats:")
-    print(f"Total commits: {commit_count}")
-    print(f"Total chunks: {total_chunks}")
-    print(f"Deduplicated chunks: {deduplicated_chunks}")
-    print(f"Space savings: {(deduplicated_chunks / max(total_chunks, 1)) * 100:.1f}%")
 
-def process_commit_smart(sha, commit_data, branches, depth, parsers, languages, 
-                        commit_graph, chunker, commit_count):
-    """Process a commit using smart chunking strategy"""
-    
-    # Get changed files
-    changed_files = get_changed_files(sha)
-    
-    all_chunks = []
-    
-    for file_path in changed_files:
-        # Determine language
-        language = get_file_language(file_path, list(languages.keys()))
-        if not language or language not in parsers:
-            continue
-        
-        # Use smart chunking
-        chunks = chunker.chunk_with_deduplication(
-            sha, file_path, parsers[language], language, 
-            commit_graph, commit_count
-        )
-        
-        # Add commit metadata to all chunks
-        for chunk in chunks:
-            chunk.update({
-                'branches': branches,
-                'parents': commit_data['parents'],
-                'children': commit_data.get('children', []),
-                'depth': depth,
-                'is_merge': len(commit_data['parents']) > 1,
-                'refs': commit_data.get('refs', []),
-                'timestamp': commit_data['timestamp'],
-                'commit_message': commit_data['message']
-            })
-        
-        all_chunks.extend(chunks)
-    
-    return all_chunks
+def cmd_clone(_args):
+    import script
+    script.main()
 
-# Enhanced query function that can reconstruct files
-def query_with_reconstruction(index, query, query_type="semantic"):
-    """Query with ability to reconstruct full files when needed"""
-    
-    if query_type == "semantic":
-        # Regular semantic search
-        # Generate embedding for query
-        from embeddings import generate_embeddings
-        query_embedding = generate_embeddings([{"content": query, "type": "query"}])[0]['embedding']
-        
-        results = index.query(
-            vector=query_embedding,
-            top_k=10,
-            include_metadata=True
-        )
-        
-        # Check if any results are incremental diffs
-        for match in results.matches:
-            if match.metadata.get('storage_type') == 'incremental':
-                # Need to reconstruct the full context
-                from reconstruction import FileReconstructor
-                with open("commit_graph.json", "r") as f:
-                    data = json.load(f)
-                
-                reconstructor = FileReconstructor(index, data['graph'], data['repo_path'])
-                full_content = reconstructor.reconstruct_file_at_sha(
-                    match.metadata['sha'], 
-                    match.metadata['path']
-                )
-                # Add reconstructed content to result
-                match.metadata['reconstructed_content'] = full_content
-        
-        return results
-    
-    elif query_type == "historical":
-        # Query for historical changes
-        # This would search through diffs
-        pass
+
+def cmd_ingest(_args):
+    from ingest_all import ingest_repository
+    ingest_repository()
+
+
+def cmd_query(args):
+    sys.argv = ["query.py"]
+    if args.question:
+        sys.argv.append(args.question)
+    if args.top_k:
+        sys.argv += ["--top-k", str(args.top_k)]
+    if args.path:
+        sys.argv += ["--path", args.path]
+    if args.sha:
+        sys.argv += ["--sha", args.sha]
+    if args.branch:
+        sys.argv += ["--branch", args.branch]
+    if args.no_llm:
+        sys.argv.append("--no-llm")
+    from query import main as query_main
+    query_main()
+
+
+def cmd_run_all(args):
+    cmd_clone(args)
+    cmd_ingest(args)
+    if args.question:
+        cmd_query(args)
+
+
+def build_argparser():
+    p = argparse.ArgumentParser(prog="git-rag", description="Git-RAG CLI")
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    sub.add_parser("clone", help="Mirror-clone the repo and build commit_graph.json")
+    sub.add_parser("ingest", help="Chunk, embed, and upsert the indexed repo into Pinecone")
+
+    q = sub.add_parser("query", help="Ask a question against the indexed repo")
+    q.add_argument("question", nargs="?")
+    q.add_argument("--top-k", type=int, default=8)
+    q.add_argument("--path")
+    q.add_argument("--sha")
+    q.add_argument("--branch")
+    q.add_argument("--no-llm", action="store_true")
+
+    a = sub.add_parser("run-all", help="Clone, ingest, and (optionally) query in one go")
+    a.add_argument("question", nargs="?")
+    a.add_argument("--top-k", type=int, default=8)
+    a.add_argument("--path")
+    a.add_argument("--sha")
+    a.add_argument("--branch")
+    a.add_argument("--no-llm", action="store_true")
+
+    return p
+
+
+def main():
+    args = build_argparser().parse_args()
+    {"clone": cmd_clone, "ingest": cmd_ingest, "query": cmd_query, "run-all": cmd_run_all}[args.cmd](args)
+
 
 if __name__ == "__main__":
-    ingest_repository_with_smart_chunking()
+    main()

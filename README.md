@@ -14,7 +14,6 @@ Tamper-proof audit – logs every query/response pair, hashes them nightly, and 
 Self-service UX – web UI and optional VS Code sidebar; both stream answers token-by-token for perceived speed.
 One-click deploy – Docker Compose + Terraform spin up all cloud resources, allowing recruiters to reproduce in 15 minutes.
 3. High-Level Architecture
-javascript
 
 
 ┌──────────┐     Push Webhook      ┌──────────────┐
