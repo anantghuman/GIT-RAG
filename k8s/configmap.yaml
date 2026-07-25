@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-rag-config
+  namespace: git-rag
+data:
+  APP_NAME: git-rag
+  ENVIRONMENT: prod
+  PROJECT_DIR: /app
+  CLONE_REPO_DIR: /data/repos
+  LOCAL_OBJECT_DIR: /data/objects
+  KAFKA_INGESTION_TOPIC: gitrag.ingestion
+  KAFKA_CONSUMER_GROUP: gitrag-workers
+  AWS_REGION: us-east-1
+  PINECONE_INDEX_NAME: git-rag-index
+  PINECONE_CLOUD: aws
+  PINECONE_REGION: us-east-1
+  OPENAI_EMBEDDING_MODEL: text-embedding-3-small
+  OPENAI_CHAT_MODEL: gpt-4o-mini
+  SNAPSHOT_INTERVAL: "10"
+  SNAPSHOT_CHANGE_THRESHOLD: "0.30"
+  EMBEDDING_BATCH_SIZE: "64"
+  VECTOR_UPSERT_BATCH_SIZE: "100"
+  QUERY_CACHE_TTL_SECONDS: "300"
+  DEFAULT_TOP_K: "8"

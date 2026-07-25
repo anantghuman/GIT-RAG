@@ -1,0 +1,14 @@
+.git
+gitrag.venv
+__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.env
+node_modules
+vendor
+build
+repos
+.gitrag-objects
+gitrag.db
+storage_report.json

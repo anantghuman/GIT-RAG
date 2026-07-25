@@ -83,3 +83,53 @@ GitHub repo – MIT-licensed code, Docker-Compose, Terraform.
 README white-paper – architecture diagram, threat model, benchmarking table (1 M vectors ≈ 220 ms p95).
 Loom video (≤ 3 min) – push a commit, ask a question, watch answer stream with diff viewer.
 Badges – “One-Click Deploy”, “Confidential-VM Ready”, “SOC-2 Controls Covered”.
+
+## Implemented Production MVP
+
+The repo now includes a concrete backend implementation of the branch-aware Git-RAG architecture:
+
+- `gitrag/` package with FastAPI, Git mirror helpers, Tree-sitter chunking, Kafka job flow, SQLAlchemy metadata models, S3/local object storage, Redis query cache, Pinecone/memory vector stores, deterministic IDs, and retrieval synthesis.
+- Alembic schema in `alembic/` for repositories, refs, commits, commit parents, files, file versions, symbols, chunks, chunk refs, ingestion jobs, embedding cache, and snapshot manifests.
+- Docker and local dependency stack in `compose.yml`: API, worker, PostgreSQL, Redis, Kafka, LocalStack S3, and Prometheus.
+- AWS/EKS deployment assets in `terraform/aws/eks/` and Kubernetes manifests in `k8s/`.
+- Tests under `tests/` and opt-in 1M-chunk benchmark scripts under `benchmarks/`.
+
+## Local Runbook
+
+Install dependencies:
+
+```bash
+gitrag.venv/bin/pip install -r requirements.txt
+```
+
+Run migrations:
+
+```bash
+gitrag.venv/bin/alembic upgrade head
+```
+
+Start the API locally:
+
+```bash
+GITRAG_VECTOR_BACKEND=memory GITRAG_DETERMINISTIC_EMBEDDINGS=true \
+gitrag.venv/bin/python main.py api --reload
+```
+
+Bootstrap a repository without Kafka:
+
+```bash
+GITRAG_VECTOR_BACKEND=memory GITRAG_DETERMINISTIC_EMBEDDINGS=true \
+gitrag.venv/bin/python main.py bootstrap https://github.com/org/repo.git --no-enqueue
+```
+
+Run the worker:
+
+```bash
+gitrag.venv/bin/python main.py worker
+```
+
+Run tests:
+
+```bash
+gitrag.venv/bin/python -m pytest tests/unit tests/api tests/integration
+```

@@ -9,3 +9,6 @@ javascript.so
 vendor/
 build/
 __pycache__/
+gitrag.db
+.gitrag-objects/
+storage_report.json

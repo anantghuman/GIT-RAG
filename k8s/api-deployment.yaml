@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: git-rag-api
+  namespace: git-rag
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: git-rag-api
+  template:
+    metadata:
+      labels:
+        app: git-rag-api
+    spec:
+      containers:
+        - name: api
+          image: ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/git-rag-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: git-rag-config
+            - secretRef:
+                name: git-rag-secrets
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          volumeMounts:
+            - name: repo-cache
+              mountPath: /data
+      volumes:
+        - name: repo-cache
+          emptyDir: {}

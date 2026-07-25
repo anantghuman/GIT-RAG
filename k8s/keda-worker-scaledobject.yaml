@@ -1,0 +1,19 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: git-rag-worker-kafka-lag
+  namespace: git-rag
+spec:
+  scaleTargetRef:
+    name: git-rag-worker
+  minReplicaCount: 2
+  maxReplicaCount: 50
+  pollingInterval: 15
+  cooldownPeriod: 120
+  triggers:
+    - type: kafka
+      metadata:
+        bootstrapServersFromEnv: KAFKA_BOOTSTRAP_SERVERS
+        consumerGroup: gitrag-workers
+        topic: gitrag.ingestion
+        lagThreshold: "100"
