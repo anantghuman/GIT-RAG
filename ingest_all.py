@@ -105,7 +105,7 @@ def ingest_repository():
     index = setup_vector_db()
 
     sorted_commits = topological_sort(commit_graph)
-    sorted_commits.reverse()  # oldest first feels natural; order doesn't change correctness
+    sorted_commits.reverse()  # Oldest first; order does not change correctness.
     print(f"\nProcessing {len(sorted_commits)} commits...")
 
     stats = {
@@ -163,7 +163,7 @@ def ingest_repository():
 
 if __name__ == "__main__":
     if not os.getenv("OPENAI_API_KEY"):
-        print("OPENAI_API_KEY is not set in .env — embeddings cannot be generated.")
+        print("OPENAI_API_KEY is not set in .env; embeddings cannot be generated.")
         sys.exit(1)
     if not os.getenv("PINECONE_API_KEY"):
         print("PINECONE_API_KEY is not set in .env.")
