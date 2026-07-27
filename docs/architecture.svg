@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Git-RAG architecture</title>
+  <desc id="desc">Branch-aware repository ingestion and retrieval flow with FastAPI, Kafka, workers, PostgreSQL, S3, Redis, Pinecone, and OpenAI.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937" />
+    </marker>
+    <style>
+      .bg { fill: #ffffff; }
+      .title { font: 700 34px Arial, Helvetica, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, Helvetica, sans-serif; fill: #4b5563; }
+      .box { fill: #f8fafc; stroke: #1f2937; stroke-width: 2; rx: 14; }
+      .api { fill: #eff6ff; stroke: #2563eb; }
+      .queue { fill: #fff7ed; stroke: #ea580c; }
+      .worker { fill: #f0fdf4; stroke: #16a34a; }
+      .store { fill: #fdf2f8; stroke: #db2777; }
+      .cache { fill: #f5f3ff; stroke: #7c3aed; }
+      .external { fill: #fefce8; stroke: #ca8a04; }
+      .label { font: 700 19px Arial, Helvetica, sans-serif; fill: #111827; }
+      .body { font: 400 15px Arial, Helvetica, sans-serif; fill: #374151; }
+      .small { font: 400 13px Arial, Helvetica, sans-serif; fill: #4b5563; }
+      .lane { font: 700 15px Arial, Helvetica, sans-serif; fill: #6b7280; letter-spacing: 0.5px; }
+      .arrow { stroke: #1f2937; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 8 7; }
+      .note { fill: #f9fafb; stroke: #d1d5db; stroke-width: 1.5; rx: 10; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="760" />
+  <text x="48" y="58" class="title">Git-RAG Branch-Aware Retrieval Architecture</text>
+  <text x="48" y="88" class="subtitle">Indexes commit history and changed code, then answers repository questions with SHA/path/line citations.</text>
+
+  <text x="54" y="134" class="lane">INGESTION</text>
+  <text x="54" y="442" class="lane">QUERY</text>
+  <line x1="48" y1="397" x2="1232" y2="397" stroke="#e5e7eb" stroke-width="2" />
+
+  <rect x="58" y="165" width="190" height="118" class="box external" />
+  <text x="84" y="198" class="label">GitHub / Git Repo</text>
+  <text x="84" y="226" class="body">Push webhooks</text>
+  <text x="84" y="250" class="body">Manual bootstrap</text>
+  <text x="84" y="274" class="small">all refs, tags, SHAs</text>
+
+  <rect x="318" y="155" width="208" height="138" class="box api" />
+  <text x="350" y="190" class="label">FastAPI Service</text>
+  <text x="350" y="220" class="body">/repos/bootstrap</text>
+  <text x="350" y="244" class="body">/webhooks/github</text>
+  <text x="350" y="268" class="body">/query, /jobs</text>
+
+  <rect x="590" y="174" width="184" height="100" class="box queue" />
+  <text x="642" y="211" class="label">Kafka</text>
+  <text x="624" y="242" class="body">ingestion jobs</text>
+  <text x="630" y="266" class="small">repo, ref, before, after</text>
+
+  <rect x="842" y="138" width="230" height="172" class="box worker" />
+  <text x="890" y="176" class="label">Worker Pods</text>
+  <text x="878" y="208" class="body">git fetch / rev-list</text>
+  <text x="878" y="232" class="body">diff-tree changed files</text>
+  <text x="878" y="256" class="body">Tree-sitter chunks</text>
+  <text x="878" y="280" class="body">OpenAI embeddings</text>
+
+  <rect x="58" y="520" width="226" height="128" class="box api" />
+  <text x="110" y="555" class="label">Client / CLI</text>
+  <text x="91" y="586" class="body">natural-language question</text>
+  <text x="91" y="610" class="body">branch, SHA, path filters</text>
+  <text x="91" y="634" class="small">returns citations</text>
+
+  <rect x="358" y="512" width="220" height="144" class="box api" />
+  <text x="415" y="548" class="label">Query API</text>
+  <text x="390" y="580" class="body">normalize request</text>
+  <text x="390" y="604" class="body">check Redis cache</text>
+  <text x="390" y="628" class="body">hydrate and enforce filters</text>
+
+  <rect x="652" y="474" width="192" height="98" class="box cache" />
+  <text x="722" y="512" class="label">Redis</text>
+  <text x="692" y="542" class="body">query result cache</text>
+
+  <rect x="652" y="606" width="192" height="98" class="box external" />
+  <text x="720" y="644" class="label">OpenAI</text>
+  <text x="682" y="674" class="body">query embeddings</text>
+  <text x="688" y="696" class="small">optional answer synthesis</text>
+
+  <rect x="918" y="464" width="216" height="110" class="box store" />
+  <text x="989" y="501" class="label">Pinecone</text>
+  <text x="954" y="532" class="body">cosine vector search</text>
+  <text x="954" y="556" class="small">small metadata filters</text>
+
+  <rect x="918" y="612" width="216" height="110" class="box store" />
+  <text x="963" y="649" class="label">PostgreSQL</text>
+  <text x="954" y="680" class="body">repos, refs, commits</text>
+  <text x="954" y="704" class="body">chunks and citations</text>
+
+  <rect x="1078" y="154" width="154" height="84" class="box store" />
+  <text x="1128" y="188" class="label">S3</text>
+  <text x="1106" y="216" class="body">snapshots</text>
+  <text x="1106" y="236" class="small">compressed diffs</text>
+
+  <rect x="1078" y="254" width="154" height="84" class="box store" />
+  <text x="1112" y="288" class="label">Postgres</text>
+  <text x="1103" y="316" class="body">metadata</text>
+  <text x="1103" y="336" class="small">chunks, jobs, refs</text>
+
+  <rect x="1078" y="54" width="154" height="84" class="box store" />
+  <text x="1116" y="88" class="label">Pinecone</text>
+  <text x="1104" y="116" class="body">vectors</text>
+  <text x="1104" y="136" class="small">repo/branch filters</text>
+
+  <path d="M 248 224 L 318 224" class="arrow" />
+  <path d="M 526 224 L 590 224" class="arrow" />
+  <path d="M 774 224 L 842 224" class="arrow" />
+  <path d="M 1034 176 C 1050 142, 1060 108, 1078 96" class="arrow" />
+  <path d="M 1072 224 L 1078 208" class="arrow" />
+  <path d="M 1034 272 C 1052 292, 1060 300, 1078 304" class="arrow" />
+
+  <path d="M 284 584 L 358 584" class="arrow" />
+  <path d="M 578 552 L 652 524" class="arrow" />
+  <path d="M 578 626 L 652 654" class="arrow" />
+  <path d="M 844 654 L 918 666" class="arrow" />
+  <path d="M 844 524 L 918 520" class="arrow" />
+  <path d="M 1026 574 L 1026 612" class="arrow dash" />
+  <path d="M 918 704 C 760 742, 462 730, 284 634" class="arrow dash" />
+
+  <rect x="60" y="332" width="1170" height="42" class="note" />
+  <text x="82" y="358" class="small">Durability boundary: Pinecone is retrieval-only. PostgreSQL and S3/local object storage own metadata, chunk text, snapshots, diffs, jobs, and refs.</text>
+</svg>
